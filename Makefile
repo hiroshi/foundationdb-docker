@@ -1,4 +1,4 @@
-IMAGE = hiroshi/foundationdb:5.1.5-1_ubuntu-16.04
+IMAGE = hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04
 build:
 	docker build . -t $(IMAGE) -t fdb
 
