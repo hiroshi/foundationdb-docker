@@ -6,3 +6,6 @@ RUN curl -sO https://www.foundationdb.org/downloads/5.1.5/ubuntu/installers/foun
 RUN dpkg -i foundationdb-clients_5.1.5-1_amd64.deb foundationdb-server_5.1.5-1_amd64.deb
 
 ADD start.sh ./
+# Add tini for pre Docker 1.13 environment or kubernetes
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini .
+RUN chmod a+x tini
