@@ -13,5 +13,22 @@ If /var/lib/foundationdb/data/4500 directory is empty, it will configure new clu
 ## Join a server to the cluster
 
 ```
-$ docker run --init --rm --name=fdb-1 -v fdb-1:/var/lib/foundationdb hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04 ./start.sh $(docker exec fdb-0 cat /etc/foundationdb/fdb.cluster)
+$ docker run --init --rm --name=fdb-1 -v fdb-1:/var/lib/foundationdb hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04 ./start.sh $(docker exec fdb-0 cat /var/lib/foundationdb/fdb.cluster)
+```
+
+## Open a fdbcli session
+
+You can run `fdbcli` on any server containers,
+```
+$ docker exec -ti fdb-0 fdbcli -C /var/lib/foundationdb/fdb.cluster
+```
+
+or run as a new container.
+```
+$ docker exec fdb-0 cat /var/lib/foundationdb/fdb.cluster
+EiWps2Oe:S5C8ZcJO@172.17.0.2:4500
+
+$ docker run -ti --rm hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04 bash
+root@6dae5372c19b:~# echo EiWps2Oe:S5C8ZcJO@172.17.0.2:4500 > /etc/foundationdb/fdb.cluster
+root@6dae5372c19b:~# fdbcli
 ```

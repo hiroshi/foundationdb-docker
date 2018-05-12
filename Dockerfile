@@ -13,3 +13,4 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini .
 RUN chmod a+x tini
 
 ADD start.sh ./
+ADD foundationdb.conf /etc/foundationdb/foundationdb.conf
