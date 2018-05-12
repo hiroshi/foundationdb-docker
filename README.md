@@ -25,10 +25,5 @@ $ docker exec -ti fdb-0 fdbcli -C /var/lib/foundationdb/fdb.cluster
 
 or run as a new container.
 ```
-$ docker exec fdb-0 cat /var/lib/foundationdb/fdb.cluster
-EiWps2Oe:S5C8ZcJO@172.17.0.2:4500
-
-$ docker run -ti --rm hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04 bash
-root@6dae5372c19b:~# echo EiWps2Oe:S5C8ZcJO@172.17.0.2:4500 > /etc/foundationdb/fdb.cluster
-root@6dae5372c19b:~# fdbcli
+docker run -ti --rm -v fdb-0:/etc/foundationdb hiroshi3110/foundationdb:5.1.5-1_ubuntu-16.04 fdbcli
 ```
