@@ -1,10 +1,14 @@
-mv /etc/foundationdb/fdb.cluster /fdb/fdb.cluster
-IP=$(getent hosts $(hostname) | cut -d ' ' -f1)
-sed -i \
-    -e "s/\(public_address = \).*/\1$IP:\$ID/" \
-    -e 's/\(listen_address = \).*/\10.0.0.0:$ID/' \
-    -e 's/\(cluster_file = \).*/\1\/fdb\/fdb.cluster/' \
-    /etc/foundationdb/foundationdb.conf
-
-(sleep 1 && fdbcli -C /fdb/fdb.cluster --exec "coordinators $IP:4500" &)
+#!/bin/sh
+if [ ! -d /var/lib/foundationdb/data/4500 ]
+then
+    if [ "$1" = "" ]
+    then
+      echo "Configure new cluster."
+       /usr/lib/foundationdb/make_public.py
+       (sleep 1 && fdbcli --no-status --exec "configure new single memory" &)
+    else
+      echo "Replace /etc/foundationdb/fdb.cluster with $1 to join."
+      echo $1 > /etc/foundationdb/fdb.cluster
+    fi
+fi
 exec /usr/lib/foundationdb/fdbmonitor
