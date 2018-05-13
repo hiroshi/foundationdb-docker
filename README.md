@@ -1,6 +1,13 @@
 # foundationdb-docker
-A docker file for FoundationDB.
+A Dockerfile of FoundationDB.
 
+## How to build docker image
+You can find pre-built images at https://hub.docker.com/r/hiroshi3110/foundationdb/, but you should not trust those image ;-)
+
+```
+git clone https://github.com/hiroshi/foundationdb-docker.git
+make build IMAGE=you/foundationdb:5.1.5-1_ubuntu-16.04
+```
 
 ## Docker
 ### Start a FoundationDB server in a docker container.
